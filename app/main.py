@@ -10,7 +10,7 @@ app = FastAPI()
 def sleep():
     print("Sleep begin")
     c = Common()
-    time.sleep(5)
+    time.sleep(2)
     print("Sleep done")
     return c.name
 
@@ -18,7 +18,7 @@ def sleep():
 async def async_sleep():
     print("Async sleep begin")
     c = Common()
-    time.sleep(5)
+    time.sleep(2)
     print("Async sleep done")
     return c.name
 
