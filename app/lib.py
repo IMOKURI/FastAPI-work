@@ -9,8 +9,6 @@ class Common:
     def get_logger(self):
         if self.logger is None:
             print("Create logger")
-            # logging.filename = "app.log"
-            # logging.config.fileConfig("logging.conf")
             self.logger = logging.getLogger(__name__)
-            # self.logger = logging.getLogger("uvicorn.app")
+            self.logger.info("Logger created")
         return self.logger

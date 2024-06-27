@@ -17,6 +17,7 @@ def sleep():
     time.sleep(2)
     c.logger.info("Sleep done")
     print("Sleep done")
+
     return c.name
 
 
@@ -30,6 +31,7 @@ async def async_sleep():
     time.sleep(2)
     c.logger.info("Async sleep done")
     print("Async sleep done")
+
     return c.name
 
 
