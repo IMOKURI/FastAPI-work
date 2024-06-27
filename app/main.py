@@ -8,6 +8,7 @@ app = FastAPI()
 
 
 def sleep():
+    print("Sleep begin")
     c = Common()
     time.sleep(5)
     print("Sleep done")
@@ -15,6 +16,7 @@ def sleep():
 
 
 async def async_sleep():
+    print("Async sleep begin")
     c = Common()
     time.sleep(5)
     print("Async sleep done")
@@ -28,7 +30,7 @@ def read_sync():
     関数の戻り値が使える。
     処理完了までブロックされる。
     """
-    print("Calling sleep")
+    print("Begin")
     val = sleep()
     print("Done")
     return {"Hello": val}
@@ -41,7 +43,7 @@ async def read_async_sync():
     関数の戻り値が使える。
     処理完了までブロックされる。
     """
-    print("Calling sleep")
+    print("Begin")
     val = sleep()
     print("Done")
     return {"Hello": val}
@@ -55,7 +57,7 @@ async def read_async():
     関数の戻り値が使える。
     処理完了までブロックされる。
     """
-    print("Calling async sleep")
+    print("Begin")
     val = await async_sleep()
     print("Done")
     return {"Hello": val}
@@ -69,7 +71,7 @@ async def read_async_noreturn():
     バックグラウンド実行になる。
     関数の戻り値は使えない。
     """
-    print("Calling async sleep")
+    print("Begin")
     async_sleep()
     print("Done")
     return {"Hello": "World"}
@@ -82,7 +84,7 @@ async def read_async_background(background_tasks: BackgroundTasks):
     background_tasks に追加することでバックグラウンド実行になる。
     関数の戻り値は使えない。
     """
-    print("Calling sleep")
+    print("Begin")
     background_tasks.add_task(sleep)
     print("Done")
     return {"Hello": "World"}
