@@ -1,6 +1,6 @@
 import time
 
-from fastapi import FastAPI
+from fastapi import BackgroundTasks, FastAPI
 
 app = FastAPI()
 
@@ -66,4 +66,17 @@ async def read_async_noreturn():
     print("Calling async sleep")
     async_sleep()
     print("Async sleep done")
+    return {"Hello": "World"}
+
+
+@app.get("/async-background")
+async def read_async_background(background_tasks: BackgroundTasks):
+    """
+    パスオペレーションは async で定義、sleep関数は async なしで定義。
+    background_tasks に追加することでバックグラウンド実行になる。
+    関数の戻り値は使えない。
+    """
+    print("Calling sleep")
+    background_tasks.add_task(sleep)
+    print("Sleep done")
     return {"Hello": "World"}
