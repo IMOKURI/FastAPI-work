@@ -2,17 +2,23 @@ import time
 
 from fastapi import BackgroundTasks, FastAPI
 
+from .lib import Common
+
 app = FastAPI()
 
 
 def sleep():
+    c = Common()
     time.sleep(5)
-    return "Done"
+    print("Sleep done")
+    return c.name
 
 
 async def async_sleep():
+    c = Common()
     time.sleep(5)
-    return "Done"
+    print("Async sleep done")
+    return c.name
 
 
 @app.get("/sync")
@@ -24,7 +30,7 @@ def read_sync():
     """
     print("Calling sleep")
     val = sleep()
-    print("Sleep done")
+    print("Done")
     return {"Hello": val}
 
 
@@ -37,7 +43,7 @@ async def read_async_sync():
     """
     print("Calling sleep")
     val = sleep()
-    print("Sleep done")
+    print("Done")
     return {"Hello": val}
 
 
@@ -51,7 +57,7 @@ async def read_async():
     """
     print("Calling async sleep")
     val = await async_sleep()
-    print("Async sleep done")
+    print("Done")
     return {"Hello": val}
 
 
@@ -65,7 +71,7 @@ async def read_async_noreturn():
     """
     print("Calling async sleep")
     async_sleep()
-    print("Async sleep done")
+    print("Done")
     return {"Hello": "World"}
 
 
@@ -78,5 +84,5 @@ async def read_async_background(background_tasks: BackgroundTasks):
     """
     print("Calling sleep")
     background_tasks.add_task(sleep)
-    print("Sleep done")
+    print("Done")
     return {"Hello": "World"}
