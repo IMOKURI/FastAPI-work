@@ -9,7 +9,7 @@ dev: ## Start fastapi app in development mode
 
 .PHONY: serve
 serve: ## Start fastapi app in test mode
-	uvicorn app:app --workers 4
+	uvicorn app:app --log-config ./logging_conf.yaml --workers 4
 
 .PHONY: test
 test: ## Run unit test

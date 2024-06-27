@@ -8,17 +8,27 @@ app = FastAPI()
 
 
 def sleep():
-    print("Sleep begin")
     c = Common()
+    c.get_logger()
+    assert c.logger is not None
+
+    c.logger.info("Sleep begin")
+    print("Sleep begin")
     time.sleep(2)
+    c.logger.info("Sleep done")
     print("Sleep done")
     return c.name
 
 
 async def async_sleep():
-    print("Async sleep begin")
     c = Common()
+    c.get_logger()
+    assert c.logger is not None
+
+    c.logger.info("Async sleep begin")
+    print("Async sleep begin")
     time.sleep(2)
+    c.logger.info("Async sleep done")
     print("Async sleep done")
     return c.name
 
