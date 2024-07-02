@@ -1,3 +1,4 @@
+import logging
 import time
 
 from fastapi import BackgroundTasks, FastAPI
@@ -5,6 +6,7 @@ from fastapi import BackgroundTasks, FastAPI
 from .lib import Common
 
 app = FastAPI()
+logger = logging.getLogger("uvicorn")
 
 
 def sleep():
@@ -13,10 +15,8 @@ def sleep():
     assert c.logger is not None
 
     c.logger.info("Sleep begin")
-    print("Sleep begin")
     time.sleep(2)
     c.logger.info("Sleep done")
-    print("Sleep done")
 
     return c.name
 
@@ -27,10 +27,8 @@ async def async_sleep():
     assert c.logger is not None
 
     c.logger.info("Async sleep begin")
-    print("Async sleep begin")
     time.sleep(2)
     c.logger.info("Async sleep done")
-    print("Async sleep done")
 
     return c.name
 
@@ -42,9 +40,9 @@ def read_sync():
     関数の戻り値が使える。
     処理完了までブロックされる。
     """
-    print("Begin")
+    logger.info("Begin")
     val = sleep()
-    print("Done")
+    logger.info("Done")
     return {"Hello": val}
 
 
@@ -55,9 +53,9 @@ async def read_async_sync():
     関数の戻り値が使える。
     処理完了までブロックされる。
     """
-    print("Begin")
+    logger.info("Begin")
     val = sleep()
-    print("Done")
+    logger.info("Done")
     return {"Hello": val}
 
 
@@ -69,9 +67,9 @@ async def read_async():
     関数の戻り値が使える。
     処理完了までブロックされる。
     """
-    print("Begin")
+    logger.info("Begin")
     val = await async_sleep()
-    print("Done")
+    logger.info("Done")
     return {"Hello": val}
 
 
@@ -83,9 +81,9 @@ async def read_async_noreturn():
     バックグラウンド実行になる。
     関数の戻り値は使えない。
     """
-    print("Begin")
+    logger.info("Begin")
     async_sleep()
-    print("Done")
+    logger.info("Done")
     return {"Hello": "World"}
 
 
@@ -96,7 +94,7 @@ async def read_async_background(background_tasks: BackgroundTasks):
     background_tasks に追加することでバックグラウンド実行になる。
     関数の戻り値は使えない。
     """
-    print("Begin")
+    logger.info("Begin")
     background_tasks.add_task(sleep)
-    print("Done")
+    logger.info("Done")
     return {"Hello": "World"}

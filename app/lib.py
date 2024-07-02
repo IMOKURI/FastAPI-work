@@ -8,7 +8,6 @@ class Common:
 
     def get_logger(self):
         if self.logger is None:
-            print("Create logger")
-            self.logger = logging.getLogger(__name__)
-            self.logger.info("Logger created")
+            self.logger = logging.getLogger("app")
+            self.logger.info(f"Logger created by {__name__}")
         return self.logger
