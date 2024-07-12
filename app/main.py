@@ -33,6 +33,26 @@ async def async_sleep():
     return c.name
 
 
+def sleep_with(count):
+    c = Common()
+    c.get_logger()
+    assert c.logger is not None
+
+    c.logger.info(f"Sleep {count} begin")
+    if count == 0:
+        try:
+            raise
+        except Exception:
+            time.sleep(count + 2)
+    elif count == 1:
+        raise
+    else:
+        time.sleep(count)
+    c.logger.info(f"Sleep {count} done")
+
+    return c.name
+
+
 @app.get("/sync")
 def read_sync():
     """
@@ -96,5 +116,27 @@ async def read_async_background(background_tasks: BackgroundTasks):
     """
     logger.info("Begin")
     background_tasks.add_task(sleep)
+    logger.info("Done")
+    return {"Hello": "World"}
+
+
+@app.get("/async-background-with-error")
+async def read_async_background_with_error(background_tasks: BackgroundTasks):
+    """
+    エラーハンドリングのテスト
+    """
+    logger.info("Begin")
+    background_tasks.add_task(sleep_with, 1)
+    logger.info("Done")
+    return {"Hello": "World"}
+
+
+@app.get("/async-background-catch-error")
+async def read_async_background_catch_error(background_tasks: BackgroundTasks):
+    """
+    エラーハンドリングのテスト
+    """
+    logger.info("Begin")
+    background_tasks.add_task(sleep_with, 0)
     logger.info("Done")
     return {"Hello": "World"}
